@@ -11,40 +11,29 @@ type MyClaims struct {
 	jwt.StandardClaims
 }
 
-type SignInfo struct {
-	// Secret 签发密钥
-	Secret string
-	// Timeout 有效期 hour
-	Timeout int
-	// Issuer 签发者 "iamctl"
-	Issuer string
-	// Audience 接收者 "iam.authz.marmotedu.com",
-	Audience string
-}
-
-func Sign(instanceID string, info SignInfo) string {
+func Sign(instanceID, audience, issuer, secret string, timeout int) string {
 
 	claims := MyClaims{
 		instanceID,
 		jwt.StandardClaims{
-			Audience:  info.Audience,
-			ExpiresAt: time.Now().Add(time.Duration(info.Timeout) * time.Hour).Unix(),
+			Audience:  audience,
+			ExpiresAt: time.Now().Add(time.Duration(timeout) * time.Hour).Unix(),
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    info.Issuer,
+			Issuer:    issuer,
 			NotBefore: time.Now().Add(0).Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, _ := token.SignedString([]byte(info.Secret))
+	tokenString, _ := token.SignedString([]byte(secret))
 
 	return tokenString
 }
 
-func ParseToken(tokenString string) (bool, *MyClaims) {
+func ParseToken(tokenString, secret string) (bool, *MyClaims) {
 	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte("!s3@fd&29vnsb213gbvdasd32smz#!bjqa"), nil
+		return []byte(secret), nil
 	})
 	if err != nil {
 		log.Errorf("jwt.ParseWithClaims failed: %v", err)
