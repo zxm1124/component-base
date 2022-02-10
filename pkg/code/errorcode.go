@@ -31,7 +31,7 @@ func NewCode(code, httpStatus int, message string) *ErrorCode {
 	httpCode := []int{200, 403, 400, 401, 404, 500}
 	for i := 0; i < len(httpCode); i++ {
 		if httpCode[i] != httpStatus {
-			logrus.Panicf("http: %d code not in `200, 403, 400, 401, 404, 500`", httpStatus)
+			logrus.Panicf("type code is: %d, the code not in `200, 403, 400, 401, 404, 500`", httpStatus)
 		}
 	}
 
