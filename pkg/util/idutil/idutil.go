@@ -3,7 +3,7 @@ package idutil
 import (
 	"github.com/sony/sonyflake"
 	"github.com/speps/go-hashids"
-	"github.com/zxm1124/component-base/pkg/util/iputil"
+	"component-base/pkg/util/iputil"
 )
 
 const (
