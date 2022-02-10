@@ -2,6 +2,7 @@ package idutil
 
 import (
 	"component-base/pkg/util/iputil"
+
 	"github.com/sony/sonyflake"
 	"github.com/speps/go-hashids"
 )
