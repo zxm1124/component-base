@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	Alphabet62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+	//Alphabet62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 	Alphabet36 = "abcdefghijklmnopqrstuvwxyz1234567890"
 )
 
