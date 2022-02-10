@@ -27,6 +27,7 @@ func NewSetting() (*Setting, error) {
 		viper: vp,
 	}, nil
 }
+
 func (s Setting) ReadSection(configName string, v interface{}) error {
 	err := s.viper.UnmarshalKey(configName, v)
 	if err != nil {
@@ -40,14 +41,14 @@ func (s Setting) ReadSection(configName string, v interface{}) error {
 func SetupSetting(settingName string, setObj interface{}) error {
 	setting, err := NewSetting()
 	if err != nil {
-		logrus.Panicf("setupSetting.NewSetting err:%v", err)
+		logrus.Panicf("setupSetting.NewSetting code:%v", err)
 		return err
 	}
 
 	// 读取APP配置文件信息
 	err = setting.ReadSection(settingName, &setObj)
 	if err != nil {
-		logrus.Panicf("setupSetting.ReadSection err: %v", err)
+		logrus.Panicf("setupSetting.ReadSection code: %v", err)
 		return err
 	}
 

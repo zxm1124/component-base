@@ -2,6 +2,9 @@ package v1
 
 import (
 	"encoding/json"
+	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
+	"strconv"
 	"time"
 )
 
@@ -49,6 +52,46 @@ type ObjectMeta struct {
 	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"updatedAt"`
 }
 
+const (
+	DEFAULT_PAGE_SIZE = 0
+)
+
+// ListMeta 封装分页数据实体
 type ListMeta struct {
-	Count int64
+	// 获取页
+	Page int `json:"page"`
+	// 每页显示数
+	PageSize int `json:"page_size"`
+	// 总条数
+	Total int64 `json:"total"`
+}
+
+// GetPage 将获取到的param转换成int类型
+func GetPage(c *gin.Context) int {
+	page, err := strconv.Atoi(c.Query("page"))
+	if err != nil {
+		// todo
+	}
+	return page
+}
+
+func GetPageSize(c *gin.Context) int {
+	size, err := strconv.Atoi(c.Param("size"))
+	if err != nil {
+		logrus.WithFields(logrus.Fields{
+			"size": size,
+		}).Errorf("page.GetPageSize failed, err:%v")
+
+		return DEFAULT_PAGE_SIZE
+	}
+
+	return size
+}
+
+func GetPageOffset(page, pageSize int) int {
+	offset := 0
+	if page > 0 {
+		return (page - 1) * pageSize
+	}
+	return offset
 }

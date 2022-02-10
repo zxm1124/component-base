@@ -16,6 +16,10 @@ type Object interface {
 
 // ListInterface 用于获取分页查询数据
 type ListInterface interface {
+	GetPage() int
+	SetPage(int)
+	GetPageSize() int
+	SetPageSize(int)
 	GetTotal() int64
 	SetTotal(count int64)
 }
@@ -29,5 +33,9 @@ func (meta *ObjectMeta) SetCreatedAt(t time.Time) { meta.CreatedAt = t }
 func (meta *ObjectMeta) GetUpdatedAt() time.Time  { return meta.UpdatedAt }
 func (meta *ObjectMeta) SetUpdatedAt(t time.Time) { meta.UpdatedAt = t }
 
-func (list *ListMeta) GetTotal() int64      { return list.Count }
-func (List *ListMeta) SetTotal(count int64) { List.Count = count }
+func (list *ListMeta) GetPage() int         { return list.Page }
+func (list *ListMeta) SetPage(page int)     { list.Page = page }
+func (list *ListMeta) GetPageSize() int     { return list.PageSize }
+func (list *ListMeta) SetPageSize(size int) { list.PageSize = size }
+func (list *ListMeta) GetTotal() int64      { return list.Total }
+func (List *ListMeta) SetTotal(total int64) { List.Total = total }
