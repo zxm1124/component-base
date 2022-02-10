@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// 封装响应实体
+// Response 封装响应实体
 type Response struct {
 	Ctx *gin.Context
 }
@@ -27,7 +27,7 @@ func (resp *Response) ToResponse(data interface{}) {
 }
 
 // ToResponseList 响应列表信息
-func (resp *Response) ToResponseList(listMeta meta.ListMeta, items []interface{}) {
+func (resp *Response) ToResponseList(listMeta meta.ListMeata, items []interface{}) {
 	resp.Ctx.JSON(http.StatusOK, gin.H{
 		"items": items,
 		"pager": listMeta,
@@ -36,12 +36,14 @@ func (resp *Response) ToResponseList(listMeta meta.ListMeta, items []interface{}
 
 // ToErrorResponse 响应错误信息
 func (resp *Response) ToErrorResponse(err code.ErrorCode) {
-	resp := gin.H{
-		"code": err.Code(),
-		"msg":  err.Msg(),
+	r := gin.H{
+		"code":       err.Code(),
+		"msg":        err.Msg(),
+		"httpStatus": err.HttpStatus(),
 	}
 	if len(err.Details()) > 0 {
 		resp["details"] = err.Details()
 	}
-	r.Ctx.JSON(err.StatusCode(), resp)
+
+	r.Ctx.JSON(err.StatusCode(), r)
 }
