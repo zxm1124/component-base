@@ -52,5 +52,6 @@ var (
 )
 
 var (
+	// ErrDatabase - 500: Database error
 	ErrDatabase = NewCode(ErrDatabaseCode, http.StatusInternalServerError, "Database error")
 )
