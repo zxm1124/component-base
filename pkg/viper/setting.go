@@ -15,6 +15,8 @@ func NewSetting() (*Setting, error) {
 	vp.SetConfigName("config")
 	// 配置路径
 	vp.AddConfigPath("configs")
+	vp.AddConfigPath("./configs")
+	vp.AddConfigPath("../configs")
 	// 配置后缀
 	vp.SetConfigType("yaml")
 	// 读取配置文件

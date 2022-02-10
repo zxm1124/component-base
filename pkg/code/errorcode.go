@@ -2,6 +2,7 @@ package code
 
 import (
 	"fmt"
+	"github.com/novalagung/gubrak"
 	"github.com/sirupsen/logrus"
 )
 
@@ -28,11 +29,9 @@ func NewCode(code, httpStatus int, message string) *ErrorCode {
 	// 将该错误码存放到map中
 	codes[code] = message
 
-	httpCode := []int{200, 403, 400, 401, 404, 500}
-	for i := 0; i < len(httpCode); i++ {
-		if httpCode[i] != httpStatus {
-			logrus.Panicf("type code is: %d, the code not in `200, 403, 400, 401, 404, 500`", httpStatus)
-		}
+	found, _ := gubrak.Includes([]int{200, 400, 401, 403, 404, 500}, httpStatus)
+	if !found {
+		logrus.Panicf("type code is: %d, the code not in `200, 403, 400, 401, 404, 500`", httpStatus)
 	}
 
 	return &ErrorCode{
@@ -43,7 +42,16 @@ func NewCode(code, httpStatus int, message string) *ErrorCode {
 }
 
 func (e *ErrorCode) Error() string {
-	return fmt.Sprintf("错误码：%d，错误信息：%s", e.code, e.message)
+	if len(e.details) > 0 {
+		str := e.details[0]
+		for i := 1; i < len(e.details); i++ {
+			str = fmt.Sprintf("%s.%s", str, e.details[i])
+		}
+
+		return fmt.Sprintf("code：%d，msg：%s, details: %s",
+			e.code, e.message, e.details)
+	}
+	return fmt.Sprintf("code：%d，msg：%s", e.code, e.message)
 }
 func (e *ErrorCode) Code() int {
 	return e.code
