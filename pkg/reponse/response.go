@@ -2,6 +2,7 @@ package reponse
 
 import (
 	"github.com/gin-gonic/gin"
+	meta "github.com/zxm1124/component-base/pkg/meta/v1"
 	"net/http"
 )
 
@@ -24,4 +25,8 @@ func (resp *Response) ToResponse(data interface{}) {
 	resp.Ctx.JSON(http.StatusOK, data)
 }
 
-func (resp *Response) ToResponseList()
+func (resp *Response) ToResponseList(listInterface meta.ListInterface) {
+	resp.Ctx.JSON(http.StatusOK, gin.H{
+		"items": listInterface, .
+	})
+}
