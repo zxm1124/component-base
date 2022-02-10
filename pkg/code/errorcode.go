@@ -39,7 +39,7 @@ func NewCode(code, httpStatus int, message string) *ErrorCode {
 }
 
 func (e *ErrorCode) Error() string {
-	return fmt.Sprintf("错误码：%d，错误信息：%s", e.code, e.msg)
+	return fmt.Sprintf("错误码：%d，错误信息：%s", e.code, e.message)
 }
 func (e *ErrorCode) Code() int {
 	return e.code
@@ -49,6 +49,9 @@ func (e *ErrorCode) Msg() string {
 }
 func (e *ErrorCode) Details() []string {
 	return e.details
+}
+func (e *ErrorCode) HttpStatus() int {
+	return e.httpStatus
 }
 func (e *ErrorCode) WithDetails(details ...string) *ErrorCode {
 	for _, v := range details {
