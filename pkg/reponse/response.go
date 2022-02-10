@@ -2,7 +2,7 @@ package reponse
 
 import (
 	"github.com/gin-gonic/gin"
-	code "github.com/zxm1124/component-base/pkg/code"
+	"github.com/zxm1124/component-base/pkg/code"
 	meta "github.com/zxm1124/component-base/pkg/meta/v1"
 	"net/http"
 )
@@ -27,7 +27,7 @@ func (resp *Response) ToResponse(data interface{}) {
 }
 
 // ToResponseList 响应列表信息
-func (resp *Response) ToResponseList(listMeta meta.ListMeata, items []interface{}) {
+func (resp *Response) ToResponseList(listMeta meta.ListMeta, items []interface{}) {
 	resp.Ctx.JSON(http.StatusOK, gin.H{
 		"items": items,
 		"pager": listMeta,
@@ -42,8 +42,8 @@ func (resp *Response) ToErrorResponse(err code.ErrorCode) {
 		"httpStatus": err.HttpStatus(),
 	}
 	if len(err.Details()) > 0 {
-		resp["details"] = err.Details()
+		r["details"] = err.Details()
 	}
 
-	r.Ctx.JSON(err.StatusCode(), r)
+	resp.Ctx.JSON(err.HttpStatus(), r)
 }
