@@ -18,6 +18,10 @@ type ErrorCode struct {
 }
 
 func NewCode(code, httpStatus int, message string) *ErrorCode {
+	if len(codes) == 0 {
+		codes = make(map[int]string)
+	}
+
 	if _, ok := codes[code]; ok {
 		logrus.Panicf("code：%d already exists, please replace it", code)
 	}
