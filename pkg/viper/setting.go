@@ -1,7 +1,7 @@
 package viper
 
 import (
-	"github.com/sirupsen/logrus"
+	"fmt"
 	"github.com/spf13/viper"
 )
 
@@ -43,14 +43,14 @@ func (s Setting) ReadSection(configName string, v interface{}) error {
 func SetupSetting(settingName string, setObj interface{}) error {
 	setting, err := NewSetting()
 	if err != nil {
-		logrus.Panicf("setupSetting.NewSetting code:%v", err)
+		panic(fmt.Sprintf("setupSetting.NewSetting code:%v", err))
 		return err
 	}
 
 	// 读取APP配置文件信息
 	err = setting.ReadSection(settingName, &setObj)
 	if err != nil {
-		logrus.Panicf("setupSetting.ReadSection code: %v", err)
+		panic(fmt.Sprintf("setupSetting.ReadSection code: %v", err))
 		return err
 	}
 
