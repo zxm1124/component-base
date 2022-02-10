@@ -2,8 +2,8 @@ package reponse
 
 import (
 	"github.com/gin-gonic/gin"
-	code "component-base/pkg/code"
-	meta "component-base/pkg/meta/v1"
+	code "github.com/zxm1124/component-base/pkg/code"
+	meta "github.com/zxm1124/component-base/pkg/meta/v1"
 	"net/http"
 )
 
