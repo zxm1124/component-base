@@ -10,4 +10,5 @@ require (
 	github.com/sony/sonyflake v1.0.0
 	github.com/speps/go-hashids v2.0.0+incompatible
 	github.com/spf13/viper v1.10.1
+	gorm.io/gorm v1.22.5
 )

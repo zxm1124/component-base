@@ -16,12 +16,16 @@ type Object interface {
 
 // ListInterface 用于获取分页查询数据
 type ListInterface interface {
-	GetPage() int
-	SetPage(int)
-	GetPageSize() int
-	SetPageSize(int)
 	GetTotal() int64
 	SetTotal(count int64)
+}
+
+// Type 用于定义操作REST资源的类型
+type Type interface {
+	GetKind() string
+	SetKind(kind string)
+	GetApiVersion() string
+	SetApiVersion(version string)
 }
 
 func (meta *ObjectMeta) GetID() uint64            { return meta.ID }
@@ -33,9 +37,10 @@ func (meta *ObjectMeta) SetCreatedAt(t time.Time) { meta.CreatedAt = t }
 func (meta *ObjectMeta) GetUpdatedAt() time.Time  { return meta.UpdatedAt }
 func (meta *ObjectMeta) SetUpdatedAt(t time.Time) { meta.UpdatedAt = t }
 
-func (list *ListMeta) GetPage() int         { return list.Page }
-func (list *ListMeta) SetPage(page int)     { list.Page = page }
-func (list *ListMeta) GetPageSize() int     { return list.PageSize }
-func (list *ListMeta) SetPageSize(size int) { list.PageSize = size }
 func (list *ListMeta) GetTotal() int64      { return list.Total }
 func (List *ListMeta) SetTotal(total int64) { List.Total = total }
+
+func (meta *TypeMeta) GetApiVersion() string        { return meta.ApiVersion }
+func (meta *TypeMeta) SetApiVersion(version string) { meta.ApiVersion = version }
+func (meta *TypeMeta) GetKind() string              { return meta.Kind }
+func (meta *TypeMeta) SetKind(kind string)          { meta.Kind = kind }

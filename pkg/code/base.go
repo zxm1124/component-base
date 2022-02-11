@@ -2,7 +2,7 @@ package code
 
 import "net/http"
 
-// Common: basic code
+// Common: basic code, begin 10 00 01
 const (
 	// ErrSuccessCode - 200: OK.
 	ErrSuccessCode int = iota + 100001
@@ -23,7 +23,7 @@ const (
 	ErrPageNotFoundCode
 )
 
-// common: database
+// common: database,begin 10 01 01
 const (
 	// ErrDatabaseCode database error
 	ErrDatabaseCode int = iota + 100101
